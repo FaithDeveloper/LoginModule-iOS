@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "LoginViewController.(kakaoAction(Any) -&gt; ()).(closure #1).(closure #1):LoginViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "JoinViewController.clickSignIn(Any) -&gt; ():JoinViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "txtArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.viewDidLoad() -&gt; ():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "GIDSignIn.sharedInstance().currentUser == nil">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.checkExistID(id : String, loginAddress : String) -&gt; Bool:AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.btnLogout(Any) -&gt; ():MainViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.(kakaoAction(Any) -&gt; ()).(closure #1).(closure #1).(closure #1):LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "kakao.properties?[&quot;email&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
