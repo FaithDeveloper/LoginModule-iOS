@@ -13,4 +13,6 @@ If you want to use LoginModel,
   
 ### 2. How to Connect Firebase 
 <https://firebase.google.com/docs/ios/setup>
-
+  
+### 3. How to Connect Kakao 
+<https://developers.kakao.com/docs/ios#시작하기-개발환경-구성>
