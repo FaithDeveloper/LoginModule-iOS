@@ -43,6 +43,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate{
             return
         }
         
+        if(!checkCorrentEmail(emailAddress: txtEmail.text!)){
+            return
+        }
+        
         
 //        let txtArrayEndIndex = txtArray.endIndex
 //        let sliceUserInfoTextfeild = txtArray[1...txtArrayEndIndex]
@@ -81,12 +85,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate{
         
         //ID 중복체크
          if let databaseRef =  self.getAppDelegate().getDatabaseRef() {
-            // 이메일 체크
-            if(!checkCorrentEmail(emailAddress: txtID.text!)){
-                self.isCheckedID = false
-                return
-            }
-            
             //@ 앞에 id 부분만 선택. 특수 문자'.'을 '_'로 변경
             let id = txtID.text!.components(separatedBy: "@")
             let targetId = Utils.changeStringToDoNotUseCharactorFormFireBase(targetString: id[0])
@@ -124,6 +122,11 @@ class JoinViewController: UIViewController, UITextFieldDelegate{
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
+        
+        txtArray = [txtID, txtPwd, txtConfirm, txtEmail, txtUserName]
+        for txtFiled in txtArray{
+            txtFiled.delegate = self
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -132,12 +135,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate{
             isCheckedID = false
         default:
             break
-        }
-        
-        
-        txtArray = [txtID, txtPwd, txtConfirm, txtEmail, txtUserName]
-        for txtFiled in txtArray{
-            txtFiled.delegate = self
         }
     }
     

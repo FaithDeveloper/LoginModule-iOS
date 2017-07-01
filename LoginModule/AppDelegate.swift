@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate  {
@@ -30,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         self.databaseRef = Database.database().reference()
         
         loginViewController = window!.rootViewController as! LoginViewController
-        return true
+        
+        return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions) || true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -66,8 +68,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                 return KOSession.handleOpen(url)
             }
             
-            return GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-                                                     annotation: [:])
+            let googleSession = GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
+            
+            let facebookSession = SDKApplicationDelegate.shared.application(application, open: url, options: options)
+            
+            return googleSession || facebookSession
     }
     
     
@@ -80,11 +85,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         let googleSession = GIDSignIn.sharedInstance().handle(url,
                                                               sourceApplication: sourceApplication,
                                                               annotation: annotation)
-        return googleSession
+        let facebookSession = SDKApplicationDelegate.shared.application(application, open: url)
+        
+        return googleSession || facebookSession
     }
     
-    //        let facebookSession = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-    //        return googleSession || facebookSession
+    
+    
     
     
     // 로그인 프로세스를 처리합니다.

@@ -9,12 +9,15 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FacebookLogin
+import FacebookCore
 
-class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
+class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, LoginButtonDelegate{
 
     @IBOutlet var txtPwd: UITextField!
     @IBOutlet var txtID: UITextField!
-        
+    @IBOutlet var viewFaceBook: UIView!
+    
     @IBAction func loginAction(_ sender: Any) {
          let id = txtID.text!.components(separatedBy: "@")
         loginUserProfile(id: id[0], pwd: txtPwd.text?.base64Encoded())
@@ -27,18 +30,23 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //UI 구분
+        self.hideKeyboardWhenTappedAround()
+        Utils.changeBoxStyle(box: bgContainerView, color: "#ECE8A7")
+        
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        Utils.changeBoxStyle(box: bgContainerView, color: "#ECE8A7")
-       
-        self.hideKeyboardWhenTappedAround()
+        
+        let btnFaceBook = LoginButton(readPermissions: [.publicProfile, .email])
+        btnFaceBook.frame = CGRect(x: 0, y: 0, width: viewFaceBook.frame.width, height: viewFaceBook.frame.height)
+        btnFaceBook.delegate = self
+
+        viewFaceBook.addSubview(btnFaceBook)
         
 //        GIDSignIn.sharedInstance().signIn()
 //        if GIDSignIn.sharedInstance().currentUser != nil {
 //            GIDSignIn.sharedInstance().signIn()
 //        }
-       
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     func getAppDelegate() -> AppDelegate!{
@@ -108,6 +116,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                     var idExist = false
                     
                     for info in userInfo{
+                        if info.value(forKey: "join_address") as? String != "custom" {
+                            self.showAlert(title: "error", msg: "회원 가입한 유저가 아닙니다.\n 구글, 카카오, 페이스북 유저인 경우 해당 버튼을 클릭 해주세요.")
+                            return
+                        }
+                        
                         if info.value(forKey: "id") as? String == id{
                             idExist = true
                             var infoPwd = info.value(forKey: "password") as? String
@@ -195,6 +208,42 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     override
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         bgContainerView.resignFirstResponder()
+    }
+    
+    
+
+    /**
+     Called when the button was used to login and the process finished.
+     - parameter loginButton: Button that was used to login.
+     - parameter result:      The result of the login.
+     */
+    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult){
+        switch result {
+        case .failed(let error):
+            print(error)
+        case .cancelled:
+            print("User cancelled login.")
+        case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+            print("Logged in!")
+            print("grantedPermissions = \(grantedPermissions), declinedPermissions = \(declinedPermissions), accessToken = \(accessToken)")
+            print("FaceBook user ID = " + accessToken.userId!)
+         
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+            
+            Auth.auth().signIn(with: credential) { (user, error) in
+                print("User Logged In to Firebase App")
+                print("FB userID : " + (user?.uid)!)
+            }
+        }
+    }
+    
+    
+    /**
+     Called when the button was used to logout.
+     - parameter loginButton: Button that was used to logout.
+     */
+    func loginButtonDidLogOut(_ loginButton: LoginButton){
+        
     }
 }
 
