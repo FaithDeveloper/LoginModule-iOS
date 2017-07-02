@@ -21,7 +21,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb109831429645630</string>
+				<string></string>
 			</array>
 		</dict>
 		<dict>
@@ -29,25 +29,25 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao08f97870cf6cf1b980091e715d2c8d56</string>
+				<string></string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>109831429645630</string>
+	<string></string>
 	<key>FacebookDisplayName</key>
 	<string>LoginModel</string>
 	<key>KAKAO_APP_KEY</key>
-	<string>08f97870cf6cf1b980091e715d2c8d56</string>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-		<string>kakao08f97870cf6cf1b980091e715d2c8d56</string>
+		<string></string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>

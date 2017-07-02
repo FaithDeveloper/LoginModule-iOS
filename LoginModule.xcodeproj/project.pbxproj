@@ -21,7 +21,6 @@
 		B53E11CC1F06297400CADF57 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11C71F06297400CADF57 /* Utils.swift */; };
 		B53E11CD1F06297400CADF57 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11C81F06297400CADF57 /* JoinViewController.swift */; };
 		B53E11CE1F06297400CADF57 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11C91F06297400CADF57 /* UserInfo.swift */; };
-		B53E11D01F06298B00CADF57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B53E11CF1F06298B00CADF57 /* GoogleService-Info.plist */; };
 		B53E11D21F06299400CADF57 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11D11F06299400CADF57 /* LoginViewController.swift */; };
 		B53E11D41F062BD600CADF57 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53E11D31F062BD600CADF57 /* KakaoOpenSDK.framework */; };
 		B53E11D61F06342D00CADF57 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E11D51F06342D00CADF57 /* Default-568h@2x.png */; };
@@ -70,7 +69,6 @@
 		B53E11C81F06297400CADF57 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		B53E11C91F06297400CADF57 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B53E11CA1F06297400CADF57 /* Briging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Briging-Header.h"; sourceTree = "<group>"; };
-		B53E11CF1F06298B00CADF57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B53E11D11F06299400CADF57 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B53E11D31F062BD600CADF57 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		B53E11D51F06342D00CADF57 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 		B53E11951F0628CB00CADF57 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
-				B53E11CF1F06298B00CADF57 /* GoogleService-Info.plist */,
 				B53E11D11F06299400CADF57 /* LoginViewController.swift */,
 				B53E11C61F06297400CADF57 /* MainViewController.swift */,
 				B53E11C71F06297400CADF57 /* Utils.swift */,
@@ -310,7 +307,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B53E11A11F0628CB00CADF57 /* LaunchScreen.storyboard in Resources */,
-				B53E11D01F06298B00CADF57 /* GoogleService-Info.plist in Resources */,
 				B53E119E1F0628CB00CADF57 /* Assets.xcassets in Resources */,
 				B53E11D61F06342D00CADF57 /* Default-568h@2x.png in Resources */,
 				B53E11C51F06291600CADF57 /* Main.storyboard in Resources */,
