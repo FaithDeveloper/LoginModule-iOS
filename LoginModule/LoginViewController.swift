@@ -19,8 +19,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBOutlet var viewFaceBook: UIView!
     
     @IBAction func loginAction(_ sender: Any) {
-         let id = txtID.text!.components(separatedBy: "@")
-        loginUserProfile(id: id[0], pwd: txtPwd.text?.base64Encoded())
+        let id = txtID.text!.components(separatedBy: "@")
+        let targetId = Utils.changeStringToDoNotUseCharactorFormFireBase(targetString: id[0])
+//        loginUserProfile(id: id[0], pwd: txtPwd.text?.base64Encoded())
+         loginUserProfile(id: targetId, pwd: txtPwd.text?.base64Encoded())
     }
     @IBOutlet var bgContainerView: UIView!
     @IBOutlet weak var signInButton: GIDSignInButton!
@@ -116,12 +118,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                     var idExist = false
                     
                     for info in userInfo{
-                        if info.value(forKey: "join_address") as? String != "custom" {
-                            self.showAlert(title: "error", msg: "회원 가입한 유저가 아닙니다.\n 구글, 카카오, 페이스북 유저인 경우 해당 버튼을 클릭 해주세요.")
-                            return
-                        }
-                        
-                        if info.value(forKey: "id") as? String == id{
+                        //id 존재 유무 확인
+                       if info.value(forKey: "id") as? String == id{
+                            //커스텀 로그인인지 체크
+                            if info.value(forKey: "join_address") as? String != "custom" {
+                                self.showAlert(title: "error", msg: "회원 가입한 유저가 아닙니다.\n 구글, 카카오, 페이스북 유저인 경우 해당 버튼을 클릭 해주세요.")
+                                return
+                            }
+                            
                             idExist = true
                             var infoPwd = info.value(forKey: "password") as? String
                             infoPwd = infoPwd?.base64Decoded()
@@ -233,6 +237,21 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             Auth.auth().signIn(with: credential) { (user, error) in
                 print("User Logged In to Firebase App")
                 print("FB userID : " + (user?.uid)!)
+                
+                var info = UserInfo()
+                if let email = user?.email {
+                    info.email = email
+                    info.id = email.components(separatedBy: "@")[0]
+                }else{
+                    return
+                }
+               
+                info.joinAddress = "facebook"
+                info.password = ""
+                
+                let appDelegate = self.getAppDelegate()
+                appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
+                self.gotoMainViewController(user: info)
             }
         }
     }

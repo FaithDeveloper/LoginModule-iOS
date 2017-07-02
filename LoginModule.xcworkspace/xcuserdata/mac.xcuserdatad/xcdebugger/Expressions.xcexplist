@@ -11,6 +11,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "LoginViewController.(loginUserProfile(id : String?, pwd : String?) -&gt; ()).(closure #1):LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "info.value(forKey: &quot;id&quot;) as? String">
+            </PersistentString>
+            <PersistentString
+               value = "id">
+            </PersistentString>
+            <PersistentString
+               value = "info.value(forKey: &quot;id&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "LoginViewController.kakaoAction(Any) -&gt; ():LoginViewController.swift">
          <PersistentStrings>
             <PersistentString
