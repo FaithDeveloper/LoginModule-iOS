@@ -5,7 +5,7 @@ If you want to use LoginModel,
 1. Install Pod.
 2. Firebase connect
 
-### 1. Pods for LoginModel.
+### 1. CocoaPods for LoginModel.
   * pod 'Firebase/Core'
   * pod 'Firebase/Auth'
   * pod 'GoogleSignIn'
