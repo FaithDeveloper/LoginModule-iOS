@@ -21,6 +21,6 @@ If you want to use LoginModel,
 <https://developers.kakao.com/docs/ios#사용자-관리-시작하기-전에>
 
 ### 5. Detail Reference Document.
-* kakao : <http://faithdeveloperstory.tistory.com/56>
-* google : <http://faithdeveloperstory.tistory.com/58>
-* facebook : <http://faithdeveloperstory.tistory.com/59>
+* [KAKAO](http://faithdeveloperstory.tistory.com/56)
+* [GOOGLE](http://faithdeveloperstory.tistory.com/58)
+* [FACEBOOK](http://faithdeveloperstory.tistory.com/59)
