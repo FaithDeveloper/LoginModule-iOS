@@ -24,3 +24,7 @@ If you want to use LoginModel,
 * [KAKAO](http://faith-developer.tistory.com/entry/SWIFT3-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%AA%A8%EB%93%88-%EA%B5%AC%EC%84%B1-13-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
 * [GOOGLE](http://faithdeveloperstory.tistory.com/58)
 * [FACEBOOK](http://faithdeveloperstory.tistory.com/59)
+  
+### 6. How to create this project.
+
+[Go to Site](http://faith-developer.tistory.com/entry/SWIFT3-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%AA%A8%EB%93%88-%EA%B5%AC%EC%84%B1-13-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
