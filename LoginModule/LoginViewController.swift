@@ -9,39 +9,60 @@
 import UIKit
 import Firebase
 import GoogleSignIn
-import FacebookLogin
-import FacebookCore
+import FBSDKCoreKit
+import FBSDKLoginKit
 
-class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, LoginButtonDelegate{
+class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate{
 
     @IBOutlet var txtPwd: UITextField!
     @IBOutlet var txtID: UITextField!
     @IBOutlet var viewFaceBook: UIView!
-    
-    @IBAction func loginAction(_ sender: Any) {
-        let id = txtID.text!.components(separatedBy: "@")
-        let targetId = Utils.changeStringToDoNotUseCharactorFormFireBase(targetString: id[0])
-//        loginUserProfile(id: id[0], pwd: txtPwd.text?.base64Encoded())
-         loginUserProfile(id: targetId, pwd: txtPwd.text?.base64Encoded())
-    }
+   
     @IBOutlet var bgContainerView: UIView!
     @IBOutlet weak var signInButton: GIDSignInButton!
     
     @IBOutlet var loadingBar: UIActivityIndicatorView!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let appDelegate = getAppDelegate() {
+            appDelegate.loginViewController = self
+        }else{
+            print("Appdelegate is nil")
+        }
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        bgContainerView.resignFirstResponder()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //UI 구분
         self.hideKeyboardWhenTappedAround()
-        Utils.changeBoxStyle(box: bgContainerView, color: "#ECE8A7")
         
+        // Google Signin
         GIDSignIn.sharedInstance().uiDelegate = self
         
-        
-        let btnFaceBook = LoginButton(readPermissions: [.publicProfile, .email])
+        // Firebase
+        let btnFaceBook = FBSDKLoginButton()
         btnFaceBook.frame = CGRect(x: 0, y: 0, width: viewFaceBook.frame.width, height: viewFaceBook.frame.height)
-        btnFaceBook.delegate = self
+        btnFaceBook.readPermissions = ["public_profile", "email"]
+        btnFaceBook.center = viewFaceBook.center
+        btnFaceBook.addTarget(self, action: #selector(self.loginFirebaseButtonClicked), for: .touchUpInside)
+        
+        if (FBSDKAccessToken.current() != nil) {
+            // 로그인 되어 있는 상태
+            print("Continue Login FB")
+        }else{
+            print("Don't Login FB")
+        }
 
         viewFaceBook.addSubview(btnFaceBook)
         
@@ -53,21 +74,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
 
     func getAppDelegate() -> AppDelegate!{
         return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if let appDelegate = getAppDelegate() {
-            appDelegate.loginViewController = self
-        }else{
-            print("Appdelegate is nil")
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
@@ -148,6 +154,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         }
     }
     
+    @IBAction func loginAction(_ sender: Any) {
+        let id = txtID.text!.components(separatedBy: "@")
+        let targetId = Utils.changeStringToDoNotUseCharactorFormFireBase(targetString: id[0])
+        loginUserProfile(id: targetId, pwd: txtPwd.text?.base64Encoded())
+    }
+    
     @IBAction func kakaoAction(_ sender: Any) {
         let session :KOSession = KOSession.shared()
         if session.isOpen() {
@@ -208,61 +220,98 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     func showAlert(title: String, msg: String){
          Utils.showAlert(viewController: self, title: title, msg: msg, handler: nil)
     }
-
-    override
-    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        bgContainerView.resignFirstResponder()
-    }
     
-    
-
-    /**
-     Called when the button was used to login and the process finished.
-     - parameter loginButton: Button that was used to login.
-     - parameter result:      The result of the login.
-     */
-    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult){
-        switch result {
-        case .failed(let error):
-            print(error)
-        case .cancelled:
-            print("User cancelled login.")
-        case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-            print("Logged in!")
-            print("grantedPermissions = \(grantedPermissions), declinedPermissions = \(declinedPermissions), accessToken = \(accessToken)")
-            print("FaceBook user ID = " + accessToken.userId!)
-         
-            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-            
-            Auth.auth().signIn(with: credential) { (user, error) in
-                print("User Logged In to Firebase App")
-                print("FB userID : " + (user?.uid)!)
-                
-                var info = UserInfo()
-                if let email = user?.email {
-                    info.email = email
-                    info.id = email.components(separatedBy: "@")[0]
+    @objc func loginFirebaseButtonClicked(){
+        let login = FBSDKLoginManager()
+        login.logIn(withReadPermissions: ["public_profile"], from: self) { (result, error) in
+            if error != nil {
+                print("Process error")
+            } else if result?.isCancelled != nil {
+                print("Cancelled")
+            } else {
+                print("Logged in")
+                if let token = result?.token {
+                    print("FB Token : \(token)")
                 }else{
-                    return
+                    print("FB Token nil")
                 }
-               
-                info.joinAddress = "facebook"
-                info.password = ""
                 
-                let appDelegate = self.getAppDelegate()
-                appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
-                self.gotoMainViewController(user: info)
+                FBSDKProfile.loadCurrentProfile(completion: { (profile, error) in
+                    if profile == nil {
+                        return
+                    }
+                    
+                    if let name = profile?.firstName{
+                        print("Hello, \(name)!")
+                    }
+                    
+                    var info = UserInfo()
+                    if let id = profile?.userID {
+                        print("FB ID:  \(id)!")
+                         info.id = id.components(separatedBy: "@")[0]
+                    }
+                    
+                    info.joinAddress = "facebook"
+                    info.password = ""
+                    
+                    let appDelegate = self.getAppDelegate()
+                    appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
+                    self.gotoMainViewController(user: info)
+                })
+                
             }
         }
     }
     
     
-    /**
-     Called when the button was used to logout.
-     - parameter loginButton: Button that was used to logout.
-     */
-    func loginButtonDidLogOut(_ loginButton: LoginButton){
-        
-    }
+    
+    ///  Called when the button was used to login and the process finished.
+    ///
+    /// - Parameters:
+    ///   - loginButton: Button that was used to login.
+    ///   - result: The result of the login.
+//    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult){
+//        switch result {
+//        case .failed(let error):
+//            print(error)
+//        case .cancelled:
+//            print("User cancelled login.")
+//        case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+//            print("Logged in!")
+//            print("grantedPermissions = \(grantedPermissions), declinedPermissions = \(declinedPermissions), accessToken = \(accessToken)")
+//            print("FaceBook user ID = " + accessToken.userId!)
+//
+//            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+//
+//            Auth.auth().signIn(with: credential) { (user, error) in
+//                print("User Logged In to Firebase App")
+//                print("FB userID : " + (user?.uid)!)
+//
+//                var info = UserInfo()
+//                if let email = user?.email {
+//                    info.email = email
+//                    info.id = email.components(separatedBy: "@")[0]
+//                }else{
+//                    return
+//                }
+//
+//                info.joinAddress = "facebook"
+//                info.password = ""
+//
+//                let appDelegate = self.getAppDelegate()
+//                appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
+//                self.gotoMainViewController(user: info)
+//            }
+//        }
+//    }
+//
+//
+//    /**
+//     Called when the button was used to logout.
+//     - parameter loginButton: Button that was used to logout.
+//     */
+//    func loginButtonDidLogOut(_ loginButton: LoginButton){
+//
+//    }
 }
 

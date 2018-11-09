@@ -11,9 +11,7 @@ target 'LoginModule' do
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod 'Firebase/Database'
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare', :git => 'https://github.com/1amageek/facebook-sdk-swift'
+  pod 'FBSDKLoginKit'
 
   target 'LoginModuleTests' do
     inherit! :search_paths

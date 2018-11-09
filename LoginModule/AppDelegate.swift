@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Firebase
+import FBSDKCoreKit
 import GoogleSignIn
-import FacebookCore
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate  {
@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
         
         // 로그인 대리자 설정
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -32,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         
         loginViewController = window!.rootViewController as! LoginViewController
         
-        return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions) || true
+        //Firebase 세팅
+        return FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions) ?? true || true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
             
             let googleSession = GIDSignIn.sharedInstance().handle(url,sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
             
-            let facebookSession = SDKApplicationDelegate.shared.application(application, open: url, options: options)
+            let facebookSession = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
             
             return googleSession || facebookSession
     }
@@ -85,15 +85,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         let googleSession = GIDSignIn.sharedInstance().handle(url,
                                                               sourceApplication: sourceApplication,
                                                               annotation: annotation)
-        let facebookSession = SDKApplicationDelegate.shared.application(application, open: url)
+        let facebookSession = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         
         return googleSession || facebookSession
     }
-    
-    
-    
-    
-    
+        
     // 로그인 프로세스를 처리합니다.
     // 여기서는 로그인 시도 시 구현된 ViewController에서 실행하도록 하였습니다.
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {

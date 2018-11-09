@@ -21,6 +21,7 @@
 #import "FBSDKAccessToken.h"
 #import "FBSDKDynamicFrameworkLoader.h"
 #import "FBSDKInternalUtility.h"
+#import "FBSDKLogger.h"
 #import "FBSDKSettings.h"
 #import "FBSDKTypeUtility.h"
 #import "FBSDKWebDialogView.h"
@@ -81,8 +82,10 @@ static FBSDKWebDialog *g_currentDialog = nil;
 
   g_currentDialog = self;
 
-  UIWindow *window = [self _findWindow];
+  UIWindow *window = [FBSDKInternalUtility findWindow];
   if (!window) {
+    [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
+                       formatString:@"There are no valid ViewController to present FBSDKWebDialog", nil];
     [self _failWithError:nil];
     return NO;
   }
@@ -123,7 +126,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
 {
   if (_deferVisibility) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      if (_dialogView) {
+      if (self->_dialogView) {
         [self _showWebView];
       }
     });
@@ -148,7 +151,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   CFTimeInterval animationDuration = (animated ? [CATransactionClass animationDuration] : 0.0);
   [self _updateViewsWithScale:1.0 alpha:1.0 animationDuration:animationDuration completion:^(BOOL finished) {
     if (finished) {
-      [_dialogView setNeedsDisplay];
+      [self->_dialogView setNeedsDisplay];
     }
   }];
 }
@@ -205,21 +208,8 @@ static FBSDKWebDialog *g_currentDialog = nil;
   // defer so that the consumer is guaranteed to have an opportunity to set the delegate before we fail
   dispatch_async(dispatch_get_main_queue(), ^{
     [self _dismissAnimated:YES];
-    [_delegate webDialog:self didFailWithError:error];
+    [self->_delegate webDialog:self didFailWithError:error];
   });
-}
-
-- (UIWindow *)_findWindow
-{
-  UIWindow *window = [UIApplication sharedApplication].keyWindow;
-  if (window == nil || window.windowLevel != UIWindowLevelNormal) {
-    for (window in [UIApplication sharedApplication].windows) {
-      if (window.windowLevel == UIWindowLevelNormal) {
-        break;
-      }
-    }
-  }
-  return window;
 }
 
 - (NSURL *)_generateURL:(NSError **)errorRef
@@ -241,8 +231,10 @@ static FBSDKWebDialog *g_currentDialog = nil;
 
 - (BOOL)_showWebView
 {
-  UIWindow *window = [self _findWindow];
+  UIWindow *window = [FBSDKInternalUtility findWindow];
   if (!window) {
+    [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
+                       formatString:@"There are no valid ViewController to present FBSDKWebDialog", nil];
     [self _failWithError:nil];
     return NO;
   }
@@ -324,15 +316,15 @@ static FBSDKWebDialog *g_currentDialog = nil;
   }
   transform = CGAffineTransformScale([self _transformForOrientation], scale, scale);
   void(^updateBlock)(void) = ^{
-    _dialogView.transform = transform;
+    self->_dialogView.transform = transform;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    CGRect mainFrame = _dialogView.window.screen.applicationFrame;
+    CGRect mainFrame = self->_dialogView.window.screen.applicationFrame;
 #pragma clang diagnostic pop
-    _dialogView.center = CGPointMake(CGRectGetMidX(mainFrame),
+    self->_dialogView.center = CGPointMake(CGRectGetMidX(mainFrame),
                                      CGRectGetMidY(mainFrame));
-    _backgroundView.alpha = alpha;
+    self->_backgroundView.alpha = alpha;
   };
   if (animationDuration == 0.0) {
     updateBlock();
