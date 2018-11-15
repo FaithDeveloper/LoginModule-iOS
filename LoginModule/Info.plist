@@ -21,7 +21,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				 <string>fb267351703964640</string>
+				<string>fb267351703964640</string>
 			</array>
 		</dict>
 		<dict>
@@ -29,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>08f97870cf6cf1b980091e715d2c8d56</string>
+				<string>kakao08f97870cf6cf1b980091e715d2c8d56</string>
 			</array>
 		</dict>
 	</array>
@@ -43,10 +43,10 @@
 	<string>08f97870cf6cf1b980091e715d2c8d56</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-        <string>fbapi</string>
-        <string>fb-messenger-share-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 		<string></string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>

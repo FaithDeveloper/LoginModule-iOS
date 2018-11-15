@@ -24,21 +24,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ad1-ex-y22">
                                 <rect key="frame" x="26" y="153" width="268" height="400"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIW-ID-3NA" customClass="KOLoginButton">
-                                        <rect key="frame" x="0.0" y="303" width="268" height="35"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIW-ID-3NA" customClass="KKakaoLoginButton" customModule="LoginModule" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="288" width="268" height="40"/>
                                         <color key="backgroundColor" red="1" green="0.82858262597447452" blue="0.55952019104201367" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="4zG-Tu-pCp"/>
+                                            <constraint firstAttribute="height" constant="40" id="4zG-Tu-pCp"/>
                                         </constraints>
                                         <connections>
                                             <action selector="kakaoAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q9s-Yc-p3D"/>
                                         </connections>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KjD-pj-1GY">
-                                        <rect key="frame" x="0.0" y="348" width="268" height="35"/>
-                                        <color key="backgroundColor" red="0.35294117647058826" green="0.5490196078431373" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="0.0" y="338" width="268" height="45"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="HgK-qn-Ilj"/>
+                                            <constraint firstAttribute="height" constant="45" id="HgK-qn-Ilj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                         <state key="normal" title=" SignUp">
@@ -49,45 +49,45 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGv-ia-vtL">
-                                        <rect key="frame" x="0.0" y="258" width="268" height="35"/>
+                                        <rect key="frame" x="0.0" y="238" width="268" height="40"/>
                                         <color key="backgroundColor" red="0.30399525802521665" green="0.37466072963191521" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="CDZ-Kj-RNq"/>
+                                            <constraint firstAttribute="height" constant="40" id="CDZ-Kj-RNq"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQN-GE-A0U" customClass="GIDSignInButton">
-                                        <rect key="frame" x="0.0" y="213" width="268" height="35"/>
+                                        <rect key="frame" x="0.0" y="188" width="268" height="40"/>
                                         <color key="backgroundColor" red="1" green="0.52655427651824671" blue="0.4323134711220421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="KT1-vp-EqJ"/>
+                                            <constraint firstAttribute="height" constant="40" id="KT1-vp-EqJ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogf-o0-6So">
-                                        <rect key="frame" x="0.0" y="8" width="268" height="180"/>
+                                        <rect key="frame" x="0.0" y="-17" width="268" height="180"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pz4-LA-y8n">
-                                                <rect key="frame" x="0.0" y="35" width="268" height="30"/>
+                                                <rect key="frame" x="0.0" y="12.5" width="268" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="BK6-82-Vtj"/>
+                                                    <constraint firstAttribute="height" constant="45" id="BK6-82-Vtj"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgd-k6-51D">
-                                                <rect key="frame" x="0.0" y="75" width="268" height="30"/>
+                                                <rect key="frame" x="0.0" y="67.5" width="268" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="lwd-Fi-hzF"/>
+                                                    <constraint firstAttribute="height" constant="45" id="lwd-Fi-hzF"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ii7-V0-Hfy">
-                                                <rect key="frame" x="0.0" y="115" width="268" height="35"/>
+                                                <rect key="frame" x="0.0" y="122.5" width="268" height="45"/>
                                                 <color key="backgroundColor" red="0.21568627450980393" green="0.84705882352941175" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="XNA-av-0MN"/>
+                                                    <constraint firstAttribute="height" constant="45" id="XNA-av-0MN"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                 <state key="normal" title="SigIn">
@@ -157,6 +157,7 @@
                     </view>
                     <connections>
                         <outlet property="bgContainerView" destination="ad1-ex-y22" id="OSq-no-5jf"/>
+                        <outlet property="btnKakao" destination="JIW-ID-3NA" id="inW-VB-0nc"/>
                         <outlet property="loadingBar" destination="Gbd-Wn-eO2" id="gFq-sP-QyG"/>
                         <outlet property="signInButton" destination="AQN-GE-A0U" id="FMp-wR-tm8"/>
                         <outlet property="txtID" destination="Pz4-LA-y8n" id="eLx-m4-2Rv"/>

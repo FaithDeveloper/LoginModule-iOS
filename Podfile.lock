@@ -56,6 +56,7 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.10)
 
 DEPENDENCIES:
+  - FBSDKCoreKit
   - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
@@ -93,6 +94,6 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
 
-PODFILE CHECKSUM: c5862cd616e2061d74cc738e285b619abaf735dc
+PODFILE CHECKSUM: a3e41f7f951f0c99bfceccf07578714a5a849834
 
 COCOAPODS: 1.5.3

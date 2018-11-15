@@ -11,7 +11,6 @@
 		706ABA23105DA6E8CA4EF3FE /* Pods_LoginModuleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A015FD483260E056FB22B0 /* Pods_LoginModuleUITests.framework */; };
 		AB95E6E33818C01D18AE3F68 /* Pods_LoginModuleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5912D7644CFCDFA0DBC71072 /* Pods_LoginModuleTests.framework */; };
 		B53E11971F0628CB00CADF57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11961F0628CB00CADF57 /* AppDelegate.swift */; };
-		B53E11991F0628CB00CADF57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11981F0628CB00CADF57 /* ViewController.swift */; };
 		B53E119E1F0628CB00CADF57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53E119D1F0628CB00CADF57 /* Assets.xcassets */; };
 		B53E11AC1F0628CB00CADF57 /* LoginModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11AB1F0628CB00CADF57 /* LoginModuleTests.swift */; };
 		B53E11B71F0628CB00CADF57 /* LoginModuleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53E11B61F0628CB00CADF57 /* LoginModuleUITests.swift */; };
@@ -24,6 +23,7 @@
 		B53E11D41F062BD600CADF57 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53E11D31F062BD600CADF57 /* KakaoOpenSDK.framework */; };
 		B53E11D61F06342D00CADF57 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E11D51F06342D00CADF57 /* Default-568h@2x.png */; };
 		B5773ED62195276300163CA0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5773ED52195276300163CA0 /* GoogleService-Info.plist */; };
+		B5CCC70C219D02FC000156C3 /* KKakaoLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CCC70B219D02FC000156C3 /* KKakaoLoginButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,6 @@
 		A567B616AA1647B008BE44CA /* Pods_LoginModule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoginModule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B53E11931F0628CB00CADF57 /* LoginModule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginModule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B53E11961F0628CB00CADF57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B53E11981F0628CB00CADF57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B53E119D1F0628CB00CADF57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B53E11A21F0628CB00CADF57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B53E11A71F0628CB00CADF57 /* LoginModuleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginModuleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +71,7 @@
 		B53E11D31F062BD600CADF57 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		B53E11D51F06342D00CADF57 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B5773ED52195276300163CA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B5CCC70B219D02FC000156C3 /* KKakaoLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KKakaoLoginButton.swift; sourceTree = "<group>"; };
 		E619514749C82366B24DF1EF /* Pods-LoginModuleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginModuleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LoginModuleTests/Pods-LoginModuleTests.release.xcconfig"; sourceTree = "<group>"; };
 		EAA1DDBFE51C2AC97A658950 /* Pods-LoginModuleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginModuleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LoginModuleUITests/Pods-LoginModuleUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,15 +155,13 @@
 		B53E11951F0628CB00CADF57 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
+				B5CCC711219D04EF000156C3 /* DTO */,
+				B5CCC70E219D04BB000156C3 /* View */,
+				B5CCC70D219D04AD000156C3 /* Common */,
+				B5CCC70A219D02E6000156C3 /* Kakao */,
 				B5773ED421950F7300163CA0 /* Storyboard */,
-				B53E11D11F06299400CADF57 /* LoginViewController.swift */,
-				B53E11C61F06297400CADF57 /* MainViewController.swift */,
-				B53E11C71F06297400CADF57 /* Utils.swift */,
-				B53E11C81F06297400CADF57 /* JoinViewController.swift */,
-				B53E11C91F06297400CADF57 /* UserInfo.swift */,
 				B53E11CA1F06297400CADF57 /* Briging-Header.h */,
 				B53E11961F0628CB00CADF57 /* AppDelegate.swift */,
-				B53E11981F0628CB00CADF57 /* ViewController.swift */,
 				B53E119D1F0628CB00CADF57 /* Assets.xcassets */,
 				B53E11A21F0628CB00CADF57 /* Info.plist */,
 				B5773ED52195276300163CA0 /* GoogleService-Info.plist */,
@@ -195,6 +193,56 @@
 				B53E11C41F06291600CADF57 /* Main.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		B5CCC70A219D02E6000156C3 /* Kakao */ = {
+			isa = PBXGroup;
+			children = (
+				B5CCC70B219D02FC000156C3 /* KKakaoLoginButton.swift */,
+			);
+			path = Kakao;
+			sourceTree = "<group>";
+		};
+		B5CCC70D219D04AD000156C3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B53E11C71F06297400CADF57 /* Utils.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B5CCC70E219D04BB000156C3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B53E11C61F06297400CADF57 /* MainViewController.swift */,
+				B5CCC710219D04DA000156C3 /* SignIn */,
+				B5CCC70F219D04C6000156C3 /* SignUp */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B5CCC70F219D04C6000156C3 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				B53E11C81F06297400CADF57 /* JoinViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		B5CCC710219D04DA000156C3 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				B53E11D11F06299400CADF57 /* LoginViewController.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		B5CCC711219D04EF000156C3 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				B53E11C91F06297400CADF57 /* UserInfo.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,9 +489,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5CCC70C219D02FC000156C3 /* KKakaoLoginButton.swift in Sources */,
 				B53E11D21F06299400CADF57 /* LoginViewController.swift in Sources */,
 				B53E11CB1F06297400CADF57 /* MainViewController.swift in Sources */,
-				B53E11991F0628CB00CADF57 /* ViewController.swift in Sources */,
 				B53E11971F0628CB00CADF57 /* AppDelegate.swift in Sources */,
 				B53E11CD1F06297400CADF57 /* JoinViewController.swift in Sources */,
 				B53E11CE1F06297400CADF57 /* UserInfo.swift in Sources */,

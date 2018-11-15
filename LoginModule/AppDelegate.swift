@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
         
         // 로그인 대리자 설정
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -32,7 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         loginViewController = window!.rootViewController as! LoginViewController
         
         //Firebase 세팅
-        return FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions) ?? true || true
+        if let sharedInstance = FBSDKApplicationDelegate.sharedInstance(){
+            return sharedInstance.application(application, didFinishLaunchingWithOptions: launchOptions)
+        }
+        
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -43,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        KOSession.handleDidEnterBackground()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -135,8 +141,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                     databaseRootChild.child("id").setValue(addTargetId)
                     databaseRootChild.child("join_address").setValue(userInfo.joinAddress)
                     databaseRootChild.child("password").setValue(userInfo.password.base64Encoded())
-                    
-                    
                 }
             })
         }
@@ -169,8 +173,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
                             }
                         }
                     }
-                    self.updateGoogleDB(uid: uid, userInfo: userInfo)
                 }
+                self.updateGoogleDB(uid: uid, userInfo: userInfo)
             })
         }
     }

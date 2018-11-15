@@ -12,6 +12,7 @@ target 'LoginModule' do
   pod 'GoogleSignIn'
   pod 'Firebase/Database'
   pod 'FBSDKLoginKit'
+  pod 'FBSDKCoreKit'
 
   target 'LoginModuleTests' do
     inherit! :search_paths
