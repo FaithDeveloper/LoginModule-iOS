@@ -24,6 +24,7 @@
 		B53E11D61F06342D00CADF57 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B53E11D51F06342D00CADF57 /* Default-568h@2x.png */; };
 		B5773ED62195276300163CA0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5773ED52195276300163CA0 /* GoogleService-Info.plist */; };
 		B5CCC70C219D02FC000156C3 /* KKakaoLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CCC70B219D02FC000156C3 /* KKakaoLoginButton.swift */; };
+		B5CCC714219D5498000156C3 /* KFBLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CCC713219D5498000156C3 /* KFBLoginButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		B53E11D51F06342D00CADF57 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B5773ED52195276300163CA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5CCC70B219D02FC000156C3 /* KKakaoLoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KKakaoLoginButton.swift; sourceTree = "<group>"; };
+		B5CCC713219D5498000156C3 /* KFBLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFBLoginButton.swift; sourceTree = "<group>"; };
 		E619514749C82366B24DF1EF /* Pods-LoginModuleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginModuleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LoginModuleTests/Pods-LoginModuleTests.release.xcconfig"; sourceTree = "<group>"; };
 		EAA1DDBFE51C2AC97A658950 /* Pods-LoginModuleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoginModuleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LoginModuleUITests/Pods-LoginModuleUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 		B53E11951F0628CB00CADF57 /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
+				B5CCC712219D547C000156C3 /* FB */,
 				B5CCC711219D04EF000156C3 /* DTO */,
 				B5CCC70E219D04BB000156C3 /* View */,
 				B5CCC70D219D04AD000156C3 /* Common */,
@@ -243,6 +246,14 @@
 				B53E11C91F06297400CADF57 /* UserInfo.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		B5CCC712219D547C000156C3 /* FB */ = {
+			isa = PBXGroup;
+			children = (
+				B5CCC713219D5498000156C3 /* KFBLoginButton.swift */,
+			);
+			path = FB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,6 +507,7 @@
 				B53E11CD1F06297400CADF57 /* JoinViewController.swift in Sources */,
 				B53E11CE1F06297400CADF57 /* UserInfo.swift in Sources */,
 				B53E11CC1F06297400CADF57 /* Utils.swift in Sources */,
+				B5CCC714219D5498000156C3 /* KFBLoginButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

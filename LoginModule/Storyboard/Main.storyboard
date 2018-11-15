@@ -60,6 +60,7 @@
                                         <color key="backgroundColor" red="1" green="0.52655427651824671" blue="0.4323134711220421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="KT1-vp-EqJ"/>
+                                            <constraint firstAttribute="width" constant="268" id="zvh-t1-0yj"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogf-o0-6So">
@@ -116,21 +117,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="KjD-pj-1GY" firstAttribute="top" secondItem="JIW-ID-3NA" secondAttribute="bottom" constant="10" id="2YV-Hm-Ck6"/>
-                                    <constraint firstItem="AQN-GE-A0U" firstAttribute="leading" secondItem="ad1-ex-y22" secondAttribute="leading" id="4pB-96-XRd"/>
+                                    <constraint firstItem="KjD-pj-1GY" firstAttribute="centerX" secondItem="ad1-ex-y22" secondAttribute="centerX" id="A5R-Q8-7UQ"/>
                                     <constraint firstItem="oGv-ia-vtL" firstAttribute="top" secondItem="AQN-GE-A0U" secondAttribute="bottom" constant="10" id="AMx-Qw-Q2H"/>
+                                    <constraint firstItem="JIW-ID-3NA" firstAttribute="width" secondItem="oGv-ia-vtL" secondAttribute="width" id="CYT-ce-FeC"/>
                                     <constraint firstAttribute="bottom" secondItem="KjD-pj-1GY" secondAttribute="bottom" constant="17" id="HwS-mU-fsP"/>
                                     <constraint firstItem="JIW-ID-3NA" firstAttribute="top" secondItem="oGv-ia-vtL" secondAttribute="bottom" constant="10" id="HxQ-ep-AwA"/>
+                                    <constraint firstItem="KjD-pj-1GY" firstAttribute="width" secondItem="JIW-ID-3NA" secondAttribute="width" id="Jub-zO-XIp"/>
                                     <constraint firstItem="ogf-o0-6So" firstAttribute="leading" secondItem="ad1-ex-y22" secondAttribute="leading" id="OgW-tf-wpn"/>
-                                    <constraint firstAttribute="trailing" secondItem="KjD-pj-1GY" secondAttribute="trailing" id="QQW-VZ-d0C"/>
-                                    <constraint firstItem="JIW-ID-3NA" firstAttribute="leading" secondItem="ad1-ex-y22" secondAttribute="leading" id="XwE-1d-f40"/>
+                                    <constraint firstItem="oGv-ia-vtL" firstAttribute="width" secondItem="AQN-GE-A0U" secondAttribute="width" id="PkK-pV-iT9"/>
+                                    <constraint firstItem="AQN-GE-A0U" firstAttribute="centerX" secondItem="ad1-ex-y22" secondAttribute="centerX" id="XK3-vP-Klg"/>
                                     <constraint firstAttribute="trailing" secondItem="ogf-o0-6So" secondAttribute="trailing" id="ayl-yu-rTw"/>
                                     <constraint firstItem="AQN-GE-A0U" firstAttribute="top" secondItem="ogf-o0-6So" secondAttribute="bottom" constant="25" id="bTo-mg-72i"/>
                                     <constraint firstAttribute="height" constant="400" id="bhV-aG-m4L"/>
-                                    <constraint firstAttribute="trailing" secondItem="oGv-ia-vtL" secondAttribute="trailing" id="eUD-cL-O5n"/>
-                                    <constraint firstAttribute="trailing" secondItem="AQN-GE-A0U" secondAttribute="trailing" id="nDd-9P-FUe"/>
-                                    <constraint firstItem="KjD-pj-1GY" firstAttribute="leading" secondItem="ad1-ex-y22" secondAttribute="leading" id="nhT-eT-dka"/>
-                                    <constraint firstAttribute="trailing" secondItem="JIW-ID-3NA" secondAttribute="trailing" id="sHa-nS-whK"/>
-                                    <constraint firstItem="oGv-ia-vtL" firstAttribute="leading" secondItem="ad1-ex-y22" secondAttribute="leading" id="sxI-6Q-HrU"/>
+                                    <constraint firstItem="oGv-ia-vtL" firstAttribute="centerX" secondItem="ad1-ex-y22" secondAttribute="centerX" id="v2k-tp-mbe"/>
+                                    <constraint firstItem="JIW-ID-3NA" firstAttribute="centerX" secondItem="ad1-ex-y22" secondAttribute="centerX" id="vtU-la-2zo"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGIN MODULE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-A4-QuW">
@@ -162,7 +162,7 @@
                         <outlet property="signInButton" destination="AQN-GE-A0U" id="FMp-wR-tm8"/>
                         <outlet property="txtID" destination="Pz4-LA-y8n" id="eLx-m4-2Rv"/>
                         <outlet property="txtPwd" destination="wgd-k6-51D" id="vfn-MP-qkj"/>
-                        <outlet property="viewFaceBook" destination="oGv-ia-vtL" id="ovm-c6-i6t"/>
+                        <outlet property="viewFaceBook" destination="oGv-ia-vtL" id="F73-LK-ciW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

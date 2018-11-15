@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "closure #1 in LoginViewController.loginFirebaseButtonClicked():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result?.isCancelled">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in KKakaoLoginButton.actionSigninButton(view:completion:):KKakaoLoginButton.swift">
          <PersistentStrings>
             <PersistentString
@@ -10,6 +18,14 @@
             </PersistentString>
             <PersistentString
                value = "(profile as KOUser).email">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.viewDidLoad():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewFaceBook.frame.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
