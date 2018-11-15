@@ -12,7 +12,6 @@ import FBSDKLoginKit
 
 protocol KFBInfoDelegate {
     func kFBInfoCompletionHandler(_ connection: FBSDKGraphRequestConnection?, _ result: Any, _ error: Error?)
-    func kFBSDKAccessTokenCurrent(result: Bool)
 }
 class KFBLoginButton: FBSDKLoginButton, FBSDKLoginButtonDelegate{
     
@@ -20,16 +19,20 @@ class KFBLoginButton: FBSDKLoginButton, FBSDKLoginButtonDelegate{
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print("[LoginModule] Login Button")
-        self.initRequest()
+        self.getFBUserData()
     }
     
-    func initRequest(){
-        if((FBSDKAccessToken.current()) != nil){
-//           FB Button Hidden
-            getFBUserData()
-        } else {
-            getFBUserData()
-        }
+    /// 현재 로그인 중인지 체크합니다.
+    ///
+    /// - return: 토큰 보유 유무
+    func checkRequest()-> Bool{
+//        if((FBSDKAccessToken.current()) != nil){
+////           FB Button Hidden
+//
+//        } else {
+//            getFBUserData()
+//        }
+        return (FBSDKAccessToken.current()) != nil
     }
     
     func getFBUserData(){

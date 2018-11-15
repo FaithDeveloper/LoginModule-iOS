@@ -66,6 +66,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     func initFB(){
         let btnFaceBook = KFBLoginButton(frame: CGRect(x: 0, y: 0, width: viewFaceBook.frame.width, height: viewFaceBook.frame.height))
         btnFaceBook.actionSigninButton(fbInfo: self)
+        if btnFaceBook.checkRequest(){
+             print("[LoginModule] Login")
+        }else{
+            print("[LoginModule] Log Out")
+        }
         viewFaceBook.addSubview(btnFaceBook)
     }
     
@@ -86,17 +91,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             print("[LoginModule] email = \(facebookEmail)")
             print("[LoginModule] id = \(facebookId)")
             print("[LoginModule] name = \( dict["name"] as! String)")
-        }
-    }
-    
-    /// 현재 로그인 중인지 체크합니다.
-    ///
-    /// - Parameter result: 토큰 보유 유무
-    func kFBSDKAccessTokenCurrent(result: Bool){
-        if result{
-            print("[LoginModule] Login")
-        }else{
-            print("[LoginModule] Log Out")
         }
     }
     
