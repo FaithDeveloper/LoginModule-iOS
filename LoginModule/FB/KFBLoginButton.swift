@@ -14,9 +14,20 @@ protocol KFBInfoDelegate {
     func kFBInfoCompletionHandler(_ connection: FBSDKGraphRequestConnection?, _ result: Any, _ error: Error?)
 }
 class KFBLoginButton: FBSDKLoginButton, FBSDKLoginButtonDelegate{
-    
+    //-------------------------------------------------------------------------------------------
+    // MARK: - local variable
+    //-------------------------------------------------------------------------------------------
     var info: KFBInfoDelegate?
     
+    //-------------------------------------------------------------------------------------------
+    // MARK: - local method
+    //-------------------------------------------------------------------------------------------
+    /// FB Login Button 초기화 합니다.
+    ///
+    /// - Parameters:
+    ///   - loginButton: 로그인 버튼
+    ///   - result: 로그인 정보
+    ///   - error: 에러메시지
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print("[LoginModule] Login Button")
         self.getFBUserData()
@@ -25,16 +36,12 @@ class KFBLoginButton: FBSDKLoginButton, FBSDKLoginButtonDelegate{
     /// 현재 로그인 중인지 체크합니다.
     ///
     /// - return: 토큰 보유 유무
-    func checkRequest()-> Bool{
-//        if((FBSDKAccessToken.current()) != nil){
-////           FB Button Hidden
-//
-//        } else {
-//            getFBUserData()
-//        }
+    func checkRequestFB()-> Bool{
         return (FBSDKAccessToken.current()) != nil
     }
     
+    
+    /// 로그인 정보를 가져옵니다.
     func getFBUserData(){
         if((FBSDKAccessToken.current()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
@@ -48,6 +55,9 @@ class KFBLoginButton: FBSDKLoginButton, FBSDKLoginButtonDelegate{
         //todo..
     }
     
+    /// 로그인 버튼 초기화 및 Delegate 등록
+    ///
+    /// - Parameter fbInfo: Delegate 정보
     func actionSigninButton(fbInfo: KFBInfoDelegate){
         // Firebase
         loginBehavior = .web

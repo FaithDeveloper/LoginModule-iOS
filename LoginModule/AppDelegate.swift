@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         FirebaseApp.configure()
         
         // 로그인 대리자 설정
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().clientID = "971652406403-3ic2cqgk62rjmg6a765cro3eiqvhhg38.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
         // 데이터베이스 정보가져오기
@@ -96,12 +96,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         return googleSession || facebookSession
     }
         
-    // 로그인 프로세스를 처리합니다.
+    // 구글 로그인 프로세스를 처리합니다.
     // 여기서는 로그인 시도 시 구현된 ViewController에서 실행하도록 하였습니다.
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         
         loginViewController.sign(signIn!, didSignInFor: user, withError: error)
-        
     }
     
     @nonobjc func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
@@ -147,7 +146,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
     }
     
     func addUserProfile(uid: String?, userInfo: UserInfo){
-        
         //ID 존재여부 체크
         if let databaseRef =  getDatabaseRef() {
             

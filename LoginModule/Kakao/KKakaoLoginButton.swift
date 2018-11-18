@@ -37,6 +37,12 @@ class KKakaoLoginButton : KOLoginButton{
 //        })
 //    }
     
+    func checkRequestKakao() -> Bool{
+        let session : KOSession = KOSession.shared()
+        
+        return session.isOpen()
+    }
+    
     
     /// 카카오 로그인 버튼 클릭 시 사용자 정보 호출
     ///

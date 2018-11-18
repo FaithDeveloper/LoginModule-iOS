@@ -14,6 +14,9 @@ import FBSDKLoginKit
 
 class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate, KFBInfoDelegate{
 
+    //-------------------------------------------------------------------------------------------
+    // MARK: - IBOutlets
+    //-------------------------------------------------------------------------------------------
     @IBOutlet var txtPwd: UITextField!
     @IBOutlet var txtID: UITextField!
     @IBOutlet var viewFaceBook: UIView!
@@ -24,6 +27,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     
     @IBOutlet var loadingBar: UIActivityIndicatorView!
     
+    //-------------------------------------------------------------------------------------------
+    // MARK: - override
+    //-------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -61,19 +67,21 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
 //        }
     }
 
-    
+    //-------------------------------------------------------------------------------------------
+    // MARK: - local method
+    //-------------------------------------------------------------------------------------------
     /// Facebook 로그인 설정
     func initFB(){
         let btnFaceBook = KFBLoginButton(frame: CGRect(x: 0, y: 0, width: viewFaceBook.frame.width, height: viewFaceBook.frame.height))
         btnFaceBook.actionSigninButton(fbInfo: self)
-        if btnFaceBook.checkRequest(){
+        if btnFaceBook.checkRequestFB(){
              print("[LoginModule] Login")
+             btnFaceBook.getFBUserData()
         }else{
             print("[LoginModule] Log Out")
         }
         viewFaceBook.addSubview(btnFaceBook)
     }
-    
     
     /// 페이스북 로그인 후 정보가 전달됩니다.
     ///
@@ -86,14 +94,32 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
             let dict = result as! [String : AnyObject]
             //print(result!)
             print(dict)
+            var info = UserInfo()
+            
             let facebookEmail = dict["email"] as! String
-            let facebookId = dict["id"] as! String
+            info.email = facebookEmail
             print("[LoginModule] email = \(facebookEmail)")
+            
+            let facebookId = dict["id"] as! String
+            info.id = facebookId
             print("[LoginModule] id = \(facebookId)")
-            print("[LoginModule] name = \( dict["name"] as! String)")
+            
+            let facebookName = dict["name"] as! String
+            info.name = facebookName
+            print("[LoginModule] name = \(facebookName)")
+            
+            info.joinAddress = "facebook"
+            info.password = ""
+            
+            let appDelegate = self.getAppDelegate()
+            appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
+            self.gotoMainViewController(user: info)
         }
     }
     
+    /// AppDelegate 가져오기
+    ///
+    /// - Returns: AppDelegate
     func getAppDelegate() -> AppDelegate!{
         return UIApplication.shared.delegate as! AppDelegate
     }
@@ -183,7 +209,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     }
     
     @IBAction func kakaoAction(_ sender: Any) {
+        
         btnKakao.actionSigninButton(view: self) { (profile, error) in
+            
+            
             guard profile != nil else{
                 return
             }
@@ -202,11 +231,17 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                 if let nickName = profile!.property(forKey: KOUserNicknamePropertyKey) as? String{
                     info.name = "\(nickName)"
                 }
+                
                 if let value = profile!.email{
                     print("kakao email : \(value)\r\n")
                     info.email =  "\(value)"
-                    info.id = "\(value)"
                 }
+                
+                if let value = profile!.id{
+                    print("kakao email : \(value)\r\n")
+                    info.id =  "\(value)"
+                }
+                
                 print("READY FOR KAKAO PROFILE!!\n")
 
                 let appDelegate = self.getAppDelegate()
@@ -221,54 +256,4 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     func showAlert(title: String, msg: String){
          Utils.showAlert(viewController: self, title: title, msg: msg, handler: nil)
     }
-    
-    ///  Called when the button was used to login and the process finished.
-    ///
-    /// - Parameters:
-    ///   - loginButton: Button that was used to login.
-    ///   - result: The result of the login.
-//    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult){
-//        switch result {
-//        case .failed(let error):
-//            print(error)
-//        case .cancelled:
-//            print("User cancelled login.")
-//        case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-//            print("Logged in!")
-//            print("grantedPermissions = \(grantedPermissions), declinedPermissions = \(declinedPermissions), accessToken = \(accessToken)")
-//            print("FaceBook user ID = " + accessToken.userId!)
-//
-//            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-//
-//            Auth.auth().signIn(with: credential) { (user, error) in
-//                print("User Logged In to Firebase App")
-//                print("FB userID : " + (user?.uid)!)
-//
-//                var info = UserInfo()
-//                if let email = user?.email {
-//                    info.email = email
-//                    info.id = email.components(separatedBy: "@")[0]
-//                }else{
-//                    return
-//                }
-//
-//                info.joinAddress = "facebook"
-//                info.password = ""
-//
-//                let appDelegate = self.getAppDelegate()
-//                appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
-//                self.gotoMainViewController(user: info)
-//            }
-//        }
-//    }
-//
-//
-//    /**
-//     Called when the button was used to logout.
-//     - parameter loginButton: Button that was used to logout.
-//     */
-//    func loginButtonDidLogOut(_ loginButton: LoginButton){
-//
-//    }
 }
-

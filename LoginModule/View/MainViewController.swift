@@ -9,11 +9,20 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class MainViewController: UIViewController {
     var user: UserInfo!
     
+    //-------------------------------------------------------------------------------------------
+    // MARK: - IBOutlets
+    //-------------------------------------------------------------------------------------------
     @IBOutlet var txtUserID: UITextField!
+    
+    //-------------------------------------------------------------------------------------------
+    // MARK: - IBAction
+    //-------------------------------------------------------------------------------------------
     @IBAction func btnLogout(_ sender: Any) {
         
         if user.joinAddress == "google" {
@@ -26,11 +35,18 @@ class MainViewController: UIViewController {
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
+        }else if user.joinAddress == "facebook"{
+            FBSDKAccessToken.setCurrent(nil)
+                              gotoLoginViewController()
+        }else if user.joinAddress == "kakao" {
+            
         }
     }
     
-    override
-    func viewDidLoad() {
+    //-------------------------------------------------------------------------------------------
+    // MARK: - override method
+    //-------------------------------------------------------------------------------------------
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         guard user != nil else {
@@ -38,10 +54,18 @@ class MainViewController: UIViewController {
             return
         }
         
+        if user.email.isEmpty{
+            txtUserID.text = user.email
+        }else{
+            txtUserID.text = user.id
+        }
         txtUserID.text = user.email
-        print("MainViewController:viewDidLoad user : \(String(describing: user?.email))")
+        print("MainViewController:viewDidLoad user : \(String(describing: txtUserID.text))")
     }
     
+    //-------------------------------------------------------------------------------------------
+    // MARK: - local method
+    //-------------------------------------------------------------------------------------------
     func gotoLoginViewController(){
         let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginViewID" ) as! LoginViewController
         self.present(loginVC, animated: true, completion: nil)
