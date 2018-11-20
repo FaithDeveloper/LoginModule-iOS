@@ -38,8 +38,8 @@ class MainViewController: UIViewController {
         }else if user.joinAddress == "facebook"{
             FBSDKAccessToken.setCurrent(nil)
                               gotoLoginViewController()
-        }else if user.joinAddress == "kakao" {
-            
+        }else {
+            gotoLoginViewController()
         }
     }
     

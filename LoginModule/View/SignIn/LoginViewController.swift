@@ -28,6 +28,60 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
     @IBOutlet var loadingBar: UIActivityIndicatorView!
     
     //-------------------------------------------------------------------------------------------
+    // MARK: - IBAction
+    //-------------------------------------------------------------------------------------------
+    @IBAction func loginAction(_ sender: Any) {
+        let id = txtID.text!.components(separatedBy: "@")
+        let targetId = Utils.changeStringToDoNotUseCharactorFormFireBase(targetString: id[0])
+        loginUserProfile(id: targetId, pwd: txtPwd.text?.base64Encoded())
+    }
+    
+    @IBAction func kakaoAction(_ sender: Any) {
+        
+        btnKakao.actionSigninButton(view: self) { (profile, error) in
+            
+            
+            guard profile != nil else{
+                return
+            }
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                print("SUCCESS GET PROFILE!!\n")
+                
+                guard (self.getAppDelegate()) != nil else{
+                    return
+                }
+                
+                //Google DB Update
+                var info = UserInfo()
+                info.joinAddress = "kakao"
+                
+                if let nickName = profile!.property(forKey: KOUserNicknamePropertyKey) as? String{
+                    info.name = "\(nickName)"
+                }
+                
+                if let value = profile!.email{
+                    print("kakao email : \(value)\r\n")
+                    info.email =  "\(value)"
+                }
+                
+                if let value = profile!.id{
+                    print("kakao email : \(value)\r\n")
+                    info.id =  "\(value)"
+                }
+                
+                print("READY FOR KAKAO PROFILE!!\n")
+                
+                let appDelegate = self.getAppDelegate()
+                appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
+                self.gotoMainViewController(user: info)
+                
+                print("SAVE FOR KAKAO PROFILE!!\n")
+            })
+        }
+    }
+    
+    //-------------------------------------------------------------------------------------------
     // MARK: - override
     //-------------------------------------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
@@ -124,6 +178,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         return UIApplication.shared.delegate as! AppDelegate
     }
 
+    
+    /// 구글 로그인 정보 가져옵니다.
+    ///
+    /// - Parameters:
+    ///   - signIn: SignIn 된 정보를 가져옵니다
+    ///   - user: 구글 로그인 정보를 가져옵니다
+    ///   - error: 에러 메시지를 가져옵니다
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         
         loadingBar.startAnimating()
@@ -159,7 +220,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         loadingBar.stopAnimating()
     }
     
-    // Custom 로그인 시도
+    
+    /// 커스텀 로그인
+    ///
+    /// - Parameters:
+    ///   - id: 아이디
+    ///   - pwd: 비밀번호
     func loginUserProfile(id: String?, pwd: String?){
         if let databaseRef = self.getAppDelegate().getDatabaseRef() {
             let databaseRootChild = databaseRef.child("user_profiles")
@@ -198,57 +264,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
                         self.showAlert(title: "error", msg: "ID가 없습니다.")
                     }
                 }
-            })
-        }
-    }
-    
-    @IBAction func loginAction(_ sender: Any) {
-        let id = txtID.text!.components(separatedBy: "@")
-        let targetId = Utils.changeStringToDoNotUseCharactorFormFireBase(targetString: id[0])
-        loginUserProfile(id: targetId, pwd: txtPwd.text?.base64Encoded())
-    }
-    
-    @IBAction func kakaoAction(_ sender: Any) {
-        
-        btnKakao.actionSigninButton(view: self) { (profile, error) in
-            
-            
-            guard profile != nil else{
-                return
-            }
-            
-            DispatchQueue.main.async(execute: { () -> Void in
-                print("SUCCESS GET PROFILE!!\n")
-                
-                guard (self.getAppDelegate()) != nil else{
-                    return
-                }
-
-                //Google DB Update
-                var info = UserInfo()
-                info.joinAddress = "kakao"
-
-                if let nickName = profile!.property(forKey: KOUserNicknamePropertyKey) as? String{
-                    info.name = "\(nickName)"
-                }
-                
-                if let value = profile!.email{
-                    print("kakao email : \(value)\r\n")
-                    info.email =  "\(value)"
-                }
-                
-                if let value = profile!.id{
-                    print("kakao email : \(value)\r\n")
-                    info.id =  "\(value)"
-                }
-                
-                print("READY FOR KAKAO PROFILE!!\n")
-
-                let appDelegate = self.getAppDelegate()
-                appDelegate?.addUserProfile(uid: appDelegate?.getDatabaseRef().childByAutoId().key, userInfo: info)
-                self.gotoMainViewController(user: info)
-                
-                print("SAVE FOR KAKAO PROFILE!!\n")
             })
         }
     }
